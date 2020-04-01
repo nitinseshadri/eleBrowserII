@@ -16,7 +16,7 @@ A simple web browser using Electron and Material Design Lite.
 
 ### How do I get set up? (easy) ###
 
-**Get binaries:** [https://drive.google.com/open?id=18Mzjvfi_JCgSsrxPE8i_yZ68Zoi2E4Cb](http://bit.ly/2LeoKFg)
+**Get binaries:** (dead link)
 
 1. Click link above
 2. Select version for your platform (macOS: use the DMG, Windows: use the Setup program, Linux: choose the best option for your distro) and install
