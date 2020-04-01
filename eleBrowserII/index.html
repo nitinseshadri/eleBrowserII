@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="script-src 'self' 'unsafe-inline'" http-equiv="Content-Security-Policy">
+  <title>eleBrowser II</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <link href="./res/iconfont/material-icons.css" rel="stylesheet">
+  <link href="./res/mdl/material.blue_grey-red.min.css" rel="stylesheet">
+  <script defer src="./res/mdl/material.min.js">
+  </script>
+  <script src="./res/wb/wb-controls.js">
+  </script>
+  <link href="./res/wb/wb-styles.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+</head>
+<body onload="onLoad();" ontouchstart="">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header wb-omnibox__header" id="omnibox-header">
+      <form class="wb-omnibox__form" id="addressForm" name="addressForm" onsubmit="iframeGo();">
+        <div class="mdl-layout__header-row wb-omnibox__header-row">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="back" onclick="iframeBack();" type="button" title="Back" disabled><i class="material-icons">arrow_back</i></button>
+		  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="forward" onclick="iframeForward();" type="button" title="Forward" disabled><i class="material-icons">arrow_forward</i></button>
+		  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="reload" onclick="iframeReload();" type="button" title="Reload"><i class="material-icons">refresh</i></button>
+		  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="stop" onclick="iframeStop();" type="button" title="Stop"><i class="material-icons">close</i></button>
+          <div class="mdl-layout-spacer"></div><img alt=" " class="wb-favicon" height="16" id="favicon" src="./res/favicon/default.png" width="16">
+          <div class="mdl-textfield mdl-js-textfield wb-omnibox">
+            <input autofocus="" class="mdl-textfield__input wb-omnibox__input" id="url" placeholder="Search or enter address" required="" type="text">
+          </div>
+          <div class="mdl-layout-spacer"></div><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="go" type="submit" title="Go"><i class="material-icons">check</i></button> <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" href="#history" id="open-history" onclick="javascript:document.getElementById('open-history').style.visibility='hidden';" title="Open History Window"><i class="material-icons">history</i></a>
+          <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate wb-progressbar" id="progressbar"></div>
+        </div>
+      </form>
+    </header>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <div class="wb-history-list mdl-layout--fixed-header" id="history">
+          <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-800 wb-omnibox__header">
+            <div class="mdl-layout__header-row wb-omnibox__header-row">
+              <span class="mdl-layout__title">History</span>
+              <div class="mdl-layout-spacer"></div>
+			  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored wb-float-right" id="show-preferences-dialog" onclick="showPreferencesDialog();" type="button" title="Preferences"><i class="material-icons">settings</i></button>
+			  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored wb-float-right" id="clear-history" onclick="clearHistory();" type="button" title="Clear History" disabled><i class="material-icons">delete</i></button>
+			  <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored wb-float-right" href="#" id="close-history" onclick="javascript:document.getElementById('open-history').style.visibility='visible';" title="Close History Window"><i class="material-icons">close</i></a>
+            </div>
+          </header>
+		  <div class="wb-history-list__container">
+            <ul class="mdl-list" id="no-history-msg">
+              <li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">info</i>No history yet. Browse some pages and they'll appear here.</span><button class="mdl-button mdl-button--fab mdl-button--mini-fab wb-float-right" type="button" style="visibility:hidden;"></button></li>
+            </ul>
+            <ul class="mdl-list" id="history-list"></ul>
+          </div>
+		</div>
+        <div class="wb-viewarea__container" id="wb-viewarea-container">
+          <webview class="wb-viewarea" id="app" src="about:blank" plugins></webview>
+        </div>
+		<dialog id="preferencesDialog" class="mdl-dialog">
+          <h4 class="mdl-dialog__title">Preferences</h4>
+          <div class="mdl-dialog__content">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label wb-right-iconbutton">
+              <input class="mdl-textfield__input" type="url" id="prefHomepage" title="URL that is opened when you start the browser" placeholder="https://www.google.com/">
+              <label class="mdl-textfield__label" for="prefHomepage">Homepage URL (leave blank for default)</label>
+			  <span class="mdl-textfield__error">Must be a valid URL (Tip: use <em>about:blank</em> for a blank page)</span>
+            </div>
+			<button type="button" id="prefSetHomepageToCurrentURL" class="mdl-button mdl-js-button mdl-button--icon wb-float-right wb-iconbutton-right" onclick="setHomepageToCurrentURL();"><i class="material-icons">tab</i></button>
+			<div class="mdl-tooltip" data-mdl-for="prefSetHomepageToCurrentURL">Set homepage to current URL</div>
+			<br>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="url" id="prefSearchPrefix" title="Searches will be added to the end of this URL" placeholder="https://www.google.com/search?q=">
+              <label class="mdl-textfield__label" for="prefSearchPrefix">Search Engine Prefix (leave blank for default)</label>
+			  <span class="mdl-textfield__error">Must be a valid URL</span>
+            </div>
+			<br>
+			<!--
+			<div>
+			 <code class="wb-small">
+               <strong>Stats for nerds</strong><br>
+			   Version: <script type="text/javascript">document.write(require("electron").remote.app.getVersion());</script><br>
+               Platform: <script type="text/javascript">document.write(process.platform);</script>-<script type="text/javascript">document.write(process.arch);</script><br>
+               Electron: <script type="text/javascript">document.write(process.versions.electron);</script><br>
+               Chrome: <script type="text/javascript">document.write(process.versions.chrome);</script><br>
+               Node: <script type="text/javascript">document.write(process.versions.node);</script><br>
+             </code>
+			</div>
+			!-->
+		  </div>
+          <div class="mdl-dialog__actions">
+            <button type="submit" class="mdl-button mdl-js-button" onclick="savePreferences();" title="Save the current preferences">Save</button>
+            <button type="button" class="mdl-button mdl-js-button" onclick="document.getElementById('preferencesDialog').close();" title="Don't save the current preferences">Cancel</button>
+            <button type="button" class="mdl-button mdl-js-button" onclick="resetPreferences();" title="Reset preferences to default" style="color:red;">Reset</button>
+		  </div>
+        </dialog>
+		<div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+           <div class="mdl-snackbar__text"></div>
+           <button type="button" class="mdl-snackbar__action"></button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

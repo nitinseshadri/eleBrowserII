@@ -1,0 +1,26 @@
+{
+  "name": "eleBrowserII",
+  "version": "0.1.0",
+  "description": "The simple web browser",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Nitin Seshadri",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^2.0.0",
+    "electron-reloader": "^0.2.0"
+  },
+  "dependencies": {
+    "electron-about-window": "^1.11.0",
+    "electron-context-menu": "^0.9.1",
+    "electron-unhandled": "^1.1.0"
+  },
+  "build": {
+    "appId": "com.nitinseshadri.eleBrowserII",
+    "productName": "eleBrowser II",
+    "copyright": "Copyright © 2018-∞ Nitin Seshadri"
+  }
+}

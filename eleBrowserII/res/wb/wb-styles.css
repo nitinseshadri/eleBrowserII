@@ -1,0 +1,123 @@
+/* CSS for web browser */
+
+body, html {
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+a, button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+}
+* {
+  letter-spacing: initial !important;
+}
+.error {
+  color: red;
+}
+@font-face {
+  font-family: Roboto;
+  src: url(../font/roboto.ttf);
+}
+.wb-favicon {
+  margin-left: 1px;
+  margin-right: 6px;
+  border: none;
+}
+.wb-omnibox__header {
+  min-height: 56px !important;
+  height: 56px !important;
+}
+.wb-omnibox__header-row {
+  padding: 0 40px 0 40px;
+  min-height: 56px !important;
+  height: 56px !important;
+}
+.wb-omnibox__form .mdl-button--fab {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.wb-omnibox {
+  width: calc(100% - 280px);
+}
+.wb-omnibox .wb-omnibox__input::placeholder {
+  color: #FEFEFE;
+  opacity: 0.75;
+}
+.wb-progressbar {
+  display: none;
+  width: 100%;
+  position: absolute;
+  top: 52px;
+  left: 0;
+  z-index: 999;
+}
+.wb-viewarea__container {
+  width: 100vw;
+  height: calc(100vh - 56px);
+  margin: 0;
+  padding: 0;
+  -webkit-overflow-scrolling: touch;
+  /* overflow: scroll; */
+}
+.wb-viewarea {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+#history {
+  display: none;
+  height: calc(100vh - 56px);
+}
+#history:target {
+  display: block;
+}
+#history:target+.wb-viewarea__container {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.wb-history-list__container {
+  max-height: calc(100% - 56px);
+  overflow: auto;
+}
+.wb-history-list__container .mdl-list__item:nth-child(even) {
+  background-color: whitesmoke;
+}
+.wb-history-list__container .mdl-list__item-primary-content {
+  white-space: nowrap;
+  overflow: auto;
+}
+.wb-history-list__container .mdl-list__item>.wb-float-right {
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+.wb-history-list__container .mdl-list__item:hover>.wb-float-right {
+  opacity: 1;
+}
+.wb-float-right {
+  float: right;
+}
+.wb-float-right.mdl-button--fab {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.wb-small {
+  font-size: smaller;
+}
+.mdl-dialog {
+  width: 50vw;
+  max-width: 512px;
+}
+.mdl-dialog .mdl-textfield {
+  width: 100%;
+  color: black;
+}
+.wb-right-iconbutton {
+  width: calc(100% - 36px) !important;
+}
+.wb-iconbutton-right {
+  margin-top: 18px;
+  margin-left: 4px;
+}
